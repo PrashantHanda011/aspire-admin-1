@@ -16,7 +16,7 @@ const AddTrendingLoansForm = () => {
     name: "",
     logo: "",
   });
-  console.log(loanData.logo);
+  console.log(loanData);
 
   const [error, setError] = useState({
     interest: "",
@@ -32,6 +32,7 @@ const AddTrendingLoansForm = () => {
   const handlerValidatedFormSubmit = async () => {
     try {
       await addLoan(loanData);
+
       history.push("/trendingloans");
       setspinn(false);
     } catch (error) {

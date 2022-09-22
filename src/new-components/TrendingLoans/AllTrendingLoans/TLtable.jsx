@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import '../../../styles/newstyles/table.css';
-import TLtableRow from './TLtableRow';
+import React, { useState, useEffect } from "react";
+import "../../../styles/newstyles/table.css";
+import TLtableRow from "./TLtableRow";
 
 const TLtable = ({ loanData }) => {
   useEffect(() => {
@@ -8,17 +8,18 @@ const TLtable = ({ loanData }) => {
   }, [loanData]);
 
   const [allloans, setallloans] = useState(loanData);
-
+  console.log(allloans);
   return (
     <div className="table-wrapper" id="#scrollBar">
       <table className="fl-table">
         <thead>
           <tr>
             <th>ID</th>
+            <th>Logo</th>
             <th>Name</th>
             <th>Interest</th>
             <th>Description</th>
-            <th style={{ textAlign: 'center' }}>Action</th>
+            <th style={{ textAlign: "center" }}>Action</th>
           </tr>
         </thead>
         <tbody>

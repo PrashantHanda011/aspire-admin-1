@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import ModeEditIcon from '@mui/icons-material/ModeEdit';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { deleteLoan } from '../../../redux/api';
-import DeleteModal from '../../utils/DeleteModal';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import ModeEditIcon from "@mui/icons-material/ModeEdit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { deleteLoan } from "../../../redux/api";
+import DeleteModal from "../../utils/DeleteModal";
 
 const TLtableRow = ({ index, loan, allloans, setallloans }) => {
   const [deleteModalOpen, setdeleteModalOpen] = useState(false);
@@ -39,23 +39,30 @@ const TLtableRow = ({ index, loan, allloans, setallloans }) => {
     <>
       <tr>
         <td>{index + 1}</td>
+        <td>
+          <img
+            style={{ height: "10vh", width: "8vw" }}
+            src={loan.logo}
+            alt=""
+          />
+        </td>
         <td>{loan.name}</td>
         <td>{loan.interest}</td>
         <td>{loan.description}</td>
         <td className="text-right">
           <div
             className="actions"
-            style={{ display: 'flex', justifyContent: 'space-evenly' }}
+            style={{ display: "flex", justifyContent: "space-evenly" }}
           >
             <Link to={`/trendingloans/edit/${loan._id}`}>
-              {' '}
+              {" "}
               <button className="edit-btn">
-                <ModeEditIcon />{' '}
+                <ModeEditIcon />{" "}
               </button>
             </Link>
-            <Link onClick={(e) => handleDeleteloan(e)} to={'#'}>
+            <Link onClick={(e) => handleDeleteloan(e)} to={"#"}>
               <button className="delete-btn">
-                <DeleteIcon />{' '}
+                <DeleteIcon />{" "}
               </button>
             </Link>
           </div>
