@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { deleteLoan } from "../../../redux/api";
+import { deleteLoan, updateLoan } from "../../../redux/api";
 import DeleteModal from "../../utils/DeleteModal";
+import { WindowSharp } from "@mui/icons-material";
 
 const TLtableRow = ({ index, loan, allloans, setallloans }) => {
   const [deleteModalOpen, setdeleteModalOpen] = useState(false);
@@ -29,6 +30,24 @@ const TLtableRow = ({ index, loan, allloans, setallloans }) => {
       console.log(err);
     }
   };
+
+  const handleChange = async (e) => {
+    console.log(loan);
+    const newOrder = e.target.value;
+    console.log(newOrder);
+    var order = alert(`order set to ${e.target.value}`);
+    console.log(e.target.name);
+    const formData = {
+      id: loan?._id,
+      order: newOrder,
+    };
+    try {
+      const res = await updateLoan(formData);
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   useEffect(() => {
     if (ConfirmDelete) {
       handleConfirmDeleteloan(loan._id);
@@ -46,6 +65,7 @@ const TLtableRow = ({ index, loan, allloans, setallloans }) => {
             alt=""
           />
         </td>
+
         <td>{loan.name}</td>
         <td>{loan.interest}</td>
         <td>{loan.description}</td>

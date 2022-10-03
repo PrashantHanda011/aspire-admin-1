@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import ModeEditIcon from '@mui/icons-material/ModeEdit';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { deleteProperty } from '../../../redux/api';
-import DeleteModal from '../../utils/DeleteModal';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import ModeEditIcon from "@mui/icons-material/ModeEdit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { deleteProperty, updateProperty } from "../../../redux/api";
+import DeleteModal from "../../utils/DeleteModal";
 const PtableRow = ({ index, property, allproperty, setallproperty }) => {
   const [deleteModalOpen, setdeleteModalOpen] = useState(false);
   const [ConfirmDelete, setConfirmDelete] = useState(false);
@@ -17,6 +17,24 @@ const PtableRow = ({ index, property, allproperty, setallproperty }) => {
   const handleDeleteProperty = (e) => {
     e.preventDefault();
     setdeleteModalOpen(true);
+  };
+
+  const handleChange = async (e) => {
+    const newOrder = e.target.value;
+    // console.log(property);
+    var order = alert(`order set to ${parseInt(e.target.value) + 1} `);
+    // console.log(e.target.name);
+    const formData = {
+      id: property?._id,
+      order: newOrder,
+    };
+    try {
+      const res = await updateProperty(formData);
+      // console.log(res);
+      window.location.reload(true);
+    } catch (error) {
+      console.log(error);
+    }
   };
   const handleConfirmDeleteProperty = async (id) => {
     try {
@@ -38,12 +56,27 @@ const PtableRow = ({ index, property, allproperty, setallproperty }) => {
       <tr>
         <td>{index + 1}</td>
         <td>{property.name}</td>
+        <td>
+          <select
+            onChange={(e) => handleChange(e)}
+            selected={property?.order}
+            class=""
+            aria-label="Default select example"
+          >
+            <option selected={property?.order + 1}>
+              {property?.order + 1}
+            </option>
+            {allproperty?.map((item, index) => (
+              <option value={index}>{index + 1}</option>
+            ))}
+          </select>
+        </td>
         <td>{property.location}</td>
         <td>{property.area}</td>
-        <td>{property.ready ? 'Yes' : 'No'}</td>
+        <td>{property.ready ? "Yes" : "No"}</td>
         <td>{property.unitsLeft}</td>
         <td>{property.price}</td>
-        <td style={{ textAlign: 'center' }}>
+        <td style={{ textAlign: "center" }}>
           {property.unitDetails.length ? (
             <Link to={`/property/unitdetail/${property._id}`}>
               <button className="btn btn-outline-secondary btn-sm">View</button>
@@ -56,7 +89,7 @@ const PtableRow = ({ index, property, allproperty, setallproperty }) => {
             </Link>
           )}
         </td>
-        <td style={{ textAlign: 'center' }}>
+        <td style={{ textAlign: "center" }}>
           {property.developer ? (
             <Link to={`/property/editdev/${property._id}`}>
               <button className="btn btn-outline-secondary btn-sm">Edit</button>
@@ -72,17 +105,17 @@ const PtableRow = ({ index, property, allproperty, setallproperty }) => {
         <td className="text-right">
           <div
             className="actions"
-            style={{ display: 'flex', justifyContent: 'space-evenly' }}
+            style={{ display: "flex", justifyContent: "space-evenly" }}
           >
             <Link to={`/property/edit/${property._id}`}>
-              {' '}
+              {" "}
               <button className="edit-btn">
-                <ModeEditIcon />{' '}
+                <ModeEditIcon />{" "}
               </button>
             </Link>
-            <Link onClick={(e) => handleDeleteProperty(e)} to={'#'}>
+            <Link onClick={(e) => handleDeleteProperty(e)} to={"#"}>
               <button className="delete-btn">
-                <DeleteIcon />{' '}
+                <DeleteIcon />{" "}
               </button>
             </Link>
           </div>

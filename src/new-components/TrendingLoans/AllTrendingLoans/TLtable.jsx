@@ -15,7 +15,9 @@ const TLtable = ({ loanData }) => {
         <thead>
           <tr>
             <th>ID</th>
+
             <th>Logo</th>
+
             <th>Name</th>
             <th>Interest</th>
             <th>Description</th>

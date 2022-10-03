@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import '../../../styles/newstyles/table.css';
-import UDtableRow from './UDtableRow';
+import React, { useState, useEffect } from "react";
+import "../../../styles/newstyles/table.css";
+import UDtableRow from "./UDtableRow";
 
 const UDtable = ({ unitDetailsData, propid }) => {
   const [allUnitDetails, setallUnitDetails] = useState(unitDetailsData);
@@ -8,7 +8,7 @@ const UDtable = ({ unitDetailsData, propid }) => {
   useEffect(() => {
     setallUnitDetails(unitDetailsData);
   }, [unitDetailsData]);
-
+  console.log(allUnitDetails);
   return (
     <>
       {allUnitDetails && unitDetailsData.unitDetails ? (
@@ -21,14 +21,14 @@ const UDtable = ({ unitDetailsData, propid }) => {
                 <th>Facing</th>
                 <th>Size</th>
                 <th>Price</th>
-                <th style={{ textAlign: 'center' }}>Action</th>
+                <th style={{ textAlign: "center" }}>Action</th>
               </tr>
             </thead>
             <tbody>
               {allUnitDetails &&
                 allUnitDetails.unitDetails &&
                 allUnitDetails.unitDetails.map((unitdetail, index) =>
-                  unitdetail.detail.map((detaildata, index) => {
+                  unitdetail.detail.map((detaildata, i) => {
                     return (
                       <UDtableRow
                         key={index}

@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import LoadingPage from '../utils/LoadingPage';
-import addIcon from '../../images/addIcon.svg';
-import searchIcon from '../../images/searchIcon.svg';
-import '../../styles/newstyles/property.css';
-import Ptable from './AllProperty/Ptable';
-import { getAllProperty } from '../../redux/api';
+import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import LoadingPage from "../utils/LoadingPage";
+import addIcon from "../../images/addIcon.svg";
+import searchIcon from "../../images/searchIcon.svg";
+import "../../styles/newstyles/property.css";
+import Ptable from "./AllProperty/Ptable";
+import { getAllProperty } from "../../redux/api";
 
 const Property = () => {
   const history = useHistory();
   const [allpropertyData, setallpropertyData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [searchInput, setsearchInput] = useState('');
+  const [searchInput, setsearchInput] = useState("");
   const [filterData, setfilterData] = useState([]);
 
   const fetchpropertyList = async () => {
@@ -31,10 +31,10 @@ const Property = () => {
 
   const searchItems = (searchValue) => {
     setsearchInput(searchValue);
-    if (searchValue !== '') {
+    if (searchValue !== "") {
       let filteredData = allpropertyData.filter((item) => {
         return Object.values(item)
-          .join('')
+          .join("")
           .toLowerCase()
           .includes(searchValue.toLowerCase());
       });
@@ -65,7 +65,7 @@ const Property = () => {
             <div className="property-addpropertyDiv">
               <button
                 className="property-addBtn"
-                onClick={() => history.push('/property/add')}
+                onClick={() => history.push("/property/add")}
               >
                 <img src={addIcon} alt="add" className="property-addIcon" />
                 <span>Add Property</span>

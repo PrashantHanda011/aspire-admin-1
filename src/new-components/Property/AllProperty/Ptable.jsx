@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import PtableRow from './PtableRow';
-import '../../../styles/newstyles/table.css';
+import React, { useState, useEffect } from "react";
+import PtableRow from "./PtableRow";
+import "../../../styles/newstyles/table.css";
 
 const Btable = ({ propertyData }) => {
   useEffect(() => {
@@ -15,14 +15,15 @@ const Btable = ({ propertyData }) => {
           <tr>
             <th>ID</th>
             <th>Name</th>
+            <th>Order</th>
             <th>Location</th>
             <th>Area</th>
             <th>Ready To Move</th>
             <th>Units Left</th>
             <th>Price Range</th>
-            <th style={{ textAlign: 'center' }}>Unit Details</th>
-            <th style={{ textAlign: 'center' }}>Developer</th>
-            <th style={{ textAlign: 'center' }}>Action</th>
+            <th style={{ textAlign: "center" }}>Unit Details</th>
+            <th style={{ textAlign: "center" }}>Developer</th>
+            <th style={{ textAlign: "center" }}>Action</th>
           </tr>
         </thead>
         <tbody>

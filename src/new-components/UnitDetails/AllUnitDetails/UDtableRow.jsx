@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { deleteUnitDetail } from '../../../redux/api';
-import DeleteModal from '../../utils/DeleteModal';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { deleteUnitDetail } from "../../../redux/api";
+import DeleteModal from "../../utils/DeleteModal";
 
 const UDtableRow = ({
   index,
@@ -45,6 +45,8 @@ const UDtableRow = ({
       console.log(err);
     }
   };
+  console.log(index);
+
   useEffect(() => {
     if (ConfirmDelete) {
       handleConfirmDelete(propid, bhk, detaildata._id);
@@ -60,9 +62,9 @@ const UDtableRow = ({
         <td>{detaildata.size}</td>
         <td>{detaildata.price}</td>
         <td>
-          <Link onClick={(e) => handleDeleteUnitDetail(e)} to={'#'}>
+          <Link onClick={(e) => handleDeleteUnitDetail(e)} to={"#"}>
             <button className="delete-btn">
-              <DeleteIcon />{' '}
+              <DeleteIcon />{" "}
             </button>
           </Link>
         </td>
