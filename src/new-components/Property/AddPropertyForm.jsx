@@ -121,7 +121,7 @@ const AddPropertyForm = () => {
         ...propertyData,
         ready: propertyData.ready === 'YES' ? true : false,
         amenities: selectedAmenities.map((amen) => amen.value),
-        area: propertyData.area + 'sqft',
+        area: propertyData.area ,
         developer: {},
         unitDetails: [],
       };

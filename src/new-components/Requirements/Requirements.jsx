@@ -6,6 +6,7 @@ import searchIcon from '../../images/searchIcon.svg';
 import '../../styles/newstyles/requirement.css';
 import Rtable from './AllRequirements/Rtable';
 import { getAllRequirements } from '../../redux/api';
+import { CSVLink, CSVDownload } from "react-csv";
 
 const Requirements = () => {
   const history = useHistory();
@@ -62,6 +63,13 @@ const Requirements = () => {
                 onChange={(e) => searchItems(e.target.value)}
               />
             </div>
+
+            <div>
+            <CSVLink data={allrequirementData} filename="Requirement.csv">
+              <button className='btn btn-primary'>Export</button>
+          </CSVLink>;
+            </div>
+
           </div>
           <div className="requirement-tableSection">
             {searchInput.length ? (

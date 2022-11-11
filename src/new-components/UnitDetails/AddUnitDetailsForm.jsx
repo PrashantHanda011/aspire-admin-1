@@ -12,7 +12,7 @@ const AddUnitDetailsForm = () => {
   const { id } = useParams();
   const [bhk, setbhk] = useState();
   const [detailData, setdetailData] = useState({
-    facing: '',
+    range: '',
     floorPlan: '',
     size: '',
     price: '',
@@ -20,11 +20,12 @@ const AddUnitDetailsForm = () => {
 
   const [error, setError] = useState({
     bhk: false,
-    facing: false,
+    range: false,
     floorPlan: false,
     size: false,
     price: false,
   });
+  console.log(detailData)
 
   const handleInputchange = (name) => (event) => {
     setdetailData({ ...detailData, [name]: event.target.value });
@@ -75,7 +76,7 @@ const AddUnitDetailsForm = () => {
     e.preventDefault();
     const updatedError = {
       bhk: bhk === '' ? true : false,
-      facing: detailData.facing === '' ? true : false,
+      range: detailData.range === '' ? true : false,
       floorPlan: detailData.floorPlan === '' ? true : false,
       size: detailData.size === '' ? true : false,
       price: detailData.price === '' ? true : false,
@@ -89,7 +90,7 @@ const AddUnitDetailsForm = () => {
     } else {
       if (
         !error.bhk &&
-        !error.facing &&
+        !error.range &&
         !error.floorPlan &&
         !error.size &&
         !error.price
@@ -123,16 +124,16 @@ const AddUnitDetailsForm = () => {
             {/* Facing*/}
             <div className="unitdetail-inputFieldDiv form-group">
               <label className="unitdetail-inputLabel">
-                Facing{' '}
+                Range{' '}
                 <span style={{ color: 'red', fontSize: '1.2rem' }}>*</span>{' '}
               </label>
               <input
                 type="text"
                 id={error.facing ? 'red-border' : ''}
-                name="Facing"
-                placeholder="Facing"
+                name="range"
+                placeholder="Range"
                 className="unitdetail-inputField"
-                onChange={handleInputchange('facing')}
+                onChange={handleInputchange('range')}
               />
             </div>
           </div>

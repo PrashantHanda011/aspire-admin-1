@@ -4,6 +4,8 @@ import searchIcon from '../../images/searchIcon.svg';
 import '../../styles/newstyles/expert.css';
 import Etable from './AllExperts/Etable';
 import { getAllExperts } from '../../redux/api';
+import { CSVLink, CSVDownload } from "react-csv";
+
 
 const Experts = () => {
   const [allexpertData, setallexpertData] = useState([]);
@@ -59,6 +61,9 @@ const Experts = () => {
                 onChange={(e) => searchItems(e.target.value)}
               />
             </div>
+            <CSVLink data={allexpertData} filename={"ExpertForm.csv"}>
+              <button className='btn btn-primary'>Export</button>
+          </CSVLink>;
           </div>
           <div className="expert-tableSection">
             {searchInput.length ? (

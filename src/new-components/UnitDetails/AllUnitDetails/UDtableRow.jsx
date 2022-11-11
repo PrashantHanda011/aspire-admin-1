@@ -58,7 +58,7 @@ const UDtableRow = ({
       <tr>
         <td>{index + 1}</td>
         <td>{bhk}</td>
-        <td>{detaildata.facing}</td>
+        <td>{detaildata.range}</td>
         <td>{detaildata.size}</td>
         <td>{detaildata.price}</td>
         <td>

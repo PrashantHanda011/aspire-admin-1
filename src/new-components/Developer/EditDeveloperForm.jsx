@@ -5,12 +5,55 @@ import { getPropertyById, updateProperty } from '../../redux/api';
 import { storage } from '../../firebase';
 import { ref, getDownloadURL, uploadBytesResumable } from 'firebase/storage';
 import LoadingPage from '../utils/LoadingPage';
+import ReactQuill from "react-quill";
+import Form from "react-bootstrap/Form";
+import "react-quill/dist/quill.snow.css";
+
+
+
 const EditDeveloperForm = () => {
   const isFirstRender = useRef(true);
   const [spinn, setspinn] = useState(false);
   const history = useHistory();
   const { id } = useParams();
   const [loading, setLoading] = useState(false);
+  EditDeveloperForm.formats = [
+    "header",
+    "font",
+    "size",
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "blockquote",
+    "list",
+    "bullet",
+    "indent",
+    "link",
+    "image",
+    "video",
+  ];
+  EditDeveloperForm.modules = {
+    toolbar: [
+      [{ header: "1" }, { header: "2" }, { font: [] }],
+      [{ size: [] }],
+      ["bold", "italic", "underline", "strike", "blockquote"],
+      [
+        { list: "ordered" },
+        { list: "bullet" },
+        { indent: "-1" },
+        { indent: "+1" },
+      ],
+      ["link", "image", "video"],
+      ["clean"],
+    ],
+    clipboard: {
+      // toggle to add extra line breaks when pasting HTML:
+      matchVisual: false,
+    },
+  };
+  
+
   const [developerData, setdeveloperData] = useState({
     name: '',
     picture: '',
@@ -115,6 +158,7 @@ const EditDeveloperForm = () => {
     }
   }, [error]);
 
+  console.log(developerData)
   return (
     <form>
       <div className="developer-container">
@@ -162,14 +206,14 @@ const EditDeveloperForm = () => {
               {/* Possessions */}
               <div className="developer-inputFieldDiv form-group">
                 <label className="developer-inputLabel">
-                  Possessions{' '}
+                  Founded In{' '}
                   <span style={{ color: 'red', fontSize: '1.2rem' }}>*</span>{' '}
                 </label>
                 <input
                   type="text"
                   id={error.possessions ? 'red-border' : ''}
                   name="Possessions"
-                  placeholder="Possessions"
+                  placeholder="Founded In"
                   className="developer-inputField"
                   onChange={handleInputchange('possessions')}
                   value={developerData.possessions}
@@ -226,13 +270,25 @@ const EditDeveloperForm = () => {
                   Description{' '}
                   <span style={{ color: 'red', fontSize: '1.2rem' }}>*</span>{' '}
                 </label>
-                <textarea
+                <ReactQuill
+                className="addblog-textField"
+                placeholder="Add Blog Content here"
+                id={error.content ? "red-border" : ""}
+                modules={EditDeveloperForm.modules}
+                formats={EditDeveloperForm.formats}
+                theme="snow"
+                value={developerData.description}
+                onChange={(content, delta, source, editor) => {
+                  setdeveloperData({ ...developerData, description: editor.getHTML() });
+                }}
+              />
+                {/* <textarea
                   className="developer-textField"
                   onChange={handleInputchange('description')}
                   name="caption"
                   id={error.description ? 'red-border' : ''}
                   value={developerData.description}
-                ></textarea>
+                ></textarea> */}
               </div>
             </div>
             {/* Submit */}`

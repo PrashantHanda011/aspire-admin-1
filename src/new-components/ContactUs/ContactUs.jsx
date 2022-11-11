@@ -4,6 +4,8 @@ import searchIcon from '../../images/searchIcon.svg';
 import '../../styles/newstyles/contact.css';
 import Ctable from './AllContactUs/Ctable';
 import { getAllContacts } from '../../redux/api';
+import { CSVLink, CSVDownload } from "react-csv";
+
 
 const ContactUs = () => {
   const [allcontactData, setallcontactData] = useState([]);
@@ -59,6 +61,9 @@ const ContactUs = () => {
                 onChange={(e) => searchItems(e.target.value)}
               />
             </div>
+            <CSVLink data={allcontactData} filename={"ContactUs.csv"}>
+              <button className='btn btn-primary'>Export</button>
+          </CSVLink>;
           </div>
           <div className="contact-tableSection">
             {searchInput.length ? (

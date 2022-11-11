@@ -4,12 +4,51 @@ import { useParams, useHistory } from 'react-router-dom';
 import { updateProperty } from '../../redux/api';
 import { storage } from '../../firebase';
 import { ref, getDownloadURL, uploadBytesResumable } from 'firebase/storage';
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 const AddDeveloperForm = () => {
   const isFirstRender = useRef(true);
   const [spinn, setspinn] = useState(false);
   const history = useHistory();
   const { id } = useParams();
+
+  AddDeveloperForm.formats = [
+    "header",
+    "font",
+    "size",
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "blockquote",
+    "list",
+    "bullet",
+    "indent",
+    "link",
+    "image",
+    "video",
+  ];
+  AddDeveloperForm.modules = {
+    toolbar: [
+      [{ header: "1" }, { header: "2" }, { font: [] }],
+      [{ size: [] }],
+      ["bold", "italic", "underline", "strike", "blockquote"],
+      [
+        { list: "ordered" },
+        { list: "bullet" },
+        { indent: "-1" },
+        { indent: "+1" },
+      ],
+      ["link", "image", "video"],
+      ["clean"],
+    ],
+    clipboard: {
+      // toggle to add extra line breaks when pasting HTML:
+      matchVisual: false,
+    },
+  };
+
 
   const [developerData, setdeveloperData] = useState({
     name: '',
@@ -98,6 +137,8 @@ const AddDeveloperForm = () => {
     }
   }, [error]);
 
+console.log(developerData)
+
   return (
     <form>
       <div className="developer-container">
@@ -138,14 +179,14 @@ const AddDeveloperForm = () => {
             {/* Possessions */}
             <div className="developer-inputFieldDiv form-group">
               <label className="developer-inputLabel">
-                Possessions{' '}
+                Founded In{' '}
                 <span style={{ color: 'red', fontSize: '1.2rem' }}>*</span>{' '}
               </label>
               <input
                 type="text"
                 id={error.possessions ? 'red-border' : ''}
                 name="Possessions"
-                placeholder="Possessions"
+                placeholder="Founded In"
                 className="developer-inputField"
                 onChange={handleInputchange('possessions')}
               />
@@ -205,12 +246,23 @@ const AddDeveloperForm = () => {
                 Description{' '}
                 <span style={{ color: 'red', fontSize: '1.2rem' }}>*</span>{' '}
               </label>
-              <textarea
+              <ReactQuill
+                className="addblog-textField"
+                placeholder="Add Blog Content here"
+                id={error.content ? "red-border" : ""}
+                modules={AddDeveloperForm.modules}
+                formats={AddDeveloperForm.formats}
+                theme="snow"
+                onChange={(content, delta, source, editor) => {
+                  setdeveloperData({ ...developerData, description: editor.getHTML() });
+                }}
+              />
+              {/* <textarea
                 className="developer-textField"
                 onChange={handleInputchange('description')}
                 name="caption"
                 id={error.description ? 'red-border' : ''}
-              ></textarea>
+              ></textarea> */}
             </div>
           </div>
           {/* Submit */}`

@@ -18,7 +18,7 @@ const UDtable = ({ unitDetailsData, propid }) => {
               <tr>
                 <th>ID</th>
                 <th>BHK</th>
-                <th>Facing</th>
+                <th>Range</th>
                 <th>Size</th>
                 <th>Price</th>
                 <th style={{ textAlign: "center" }}>Action</th>
