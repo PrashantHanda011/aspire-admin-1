@@ -283,7 +283,7 @@ const NavSidebar = (props) => {
                       style={{ color: 'white', fontSize: '1.8rem' }}
                     />
                   </ListItemIcon>
-                  <ListItemText primary="Contact Forms" />
+                  <ListItemText primary="All Forms" />
                 </Accordion.Header>
                 <Accordion.Body className="p-0 ">
                   <List className={classes.listDiv} class="mt-0">
@@ -309,6 +309,7 @@ const NavSidebar = (props) => {
                       </ListItemIcon>
                       <ListItemText primary="Requirement" />
                     </ListItem>
+                    
                     <ListItem
                       button
                       className={
@@ -331,6 +332,31 @@ const NavSidebar = (props) => {
                       </ListItemIcon>
                       <ListItemText primary="Contact" />
                     </ListItem>
+
+                    <ListItem
+                      button
+                      className={
+                        props.location.pathname.includes('/application')
+                          ? classes.selectedList
+                          : ''
+                      }
+                      onClick={() => handleListClick('/application')}
+                    >
+                      <ListItemIcon>
+                        {props.location.pathname.includes('/application') ? (
+                          <PeopleOutlineIcon
+                            style={{ color: 'white', fontSize: '1.8rem' }}
+                          />
+                        ) : (
+                          <PeopleOutlineIcon
+                            style={{ color: 'white', fontSize: '1.8rem' }}
+                          />
+                        )}
+                      </ListItemIcon>
+                      <ListItemText primary="Career Application" />
+                    </ListItem>
+                    
+
                     <ListItem
                       button
                       className={

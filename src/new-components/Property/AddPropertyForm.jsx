@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { addProperty } from '../../redux/api';
 import { storage } from '../../firebase';
 import Select from 'react-select';
+import { Form } from 'react-bootstrap';
 import { ref, getDownloadURL, uploadBytesResumable } from 'firebase/storage';
 const AddPropertyForm = () => {
   const isFirstRender = useRef(true);
@@ -178,7 +179,57 @@ const AddPropertyForm = () => {
     }
   }, [error]);
 
+// images
+
+  //images
+
+  const addImages = (e) => {
+    e.preventDefault()
+    let newfield = e.target.value;
+    setpropertyData({
+      ...propertyData,
+      pictures: [...propertyData?.pictures, newfield],
+    });
+  };
+
+
+  const removeImage = (index,e) => {
+    e.preventDefault();
+    let data = [...propertyData?.pictures];
+    data.splice(index, 1);
+    setpropertyData({ ...propertyData, pictures: data });
+  };
+
+  const handleImage = (index,e ) => {
+   e.preventDefault()
+   let data = [...propertyData?.pictures];
+
+    let image=e.target.files[0]
+   if (!image) return;
+   const storageRef = ref(storage, `/Images/${image.name}`);
+   const uploadTask = uploadBytesResumable(storageRef, image);
+   uploadTask.on(
+     'state_changed',
+     (snap) => {
+       const percentUploaded = Math.round((snap.bytesTransferred / snap.totalBytes) * 100);
+//       setImagePercent( percentUploaded ); 
+
+     },
+     (error) => {
+       alert(error);
+     },
+     () => {
+       getDownloadURL(uploadTask.snapshot.ref).then((imgurl) => {
+        data[index] = imgurl;
+        setpropertyData({ ...propertyData, pictures: data });
+       });
+     })
+  };
+
+console.log(propertyData)
+
   return (
+
     <form>
       <div className="addproperty-container">
         <div className="addproperty-personalDetails">
@@ -330,7 +381,7 @@ const AddPropertyForm = () => {
               </div>
             </div>
             {/* Property  Pictures */}
-            <div className="addproperty-inputFieldDiv">
+            {/* <div className="addproperty-inputFieldDiv">
               <label className="addproperty-inputLabel">
                 Property Pictures{' '}
                 <span style={{ color: 'red', fontSize: '1.2rem' }}>*</span>{' '}
@@ -344,8 +395,40 @@ const AddPropertyForm = () => {
                 id={error.pictures ? 'red-border' : ''}
                 multiple
               />
-            </div>
+            </div> */}
           </div>
+          <Form.Group className="mb-5" controlId="formBasicEmail">
+              <Form.Group
+                className="mb-3 mt-4  d-flex justify-content-between align-items-center"
+                controlId="formBasicPassword"
+              >
+                <h4>Add Images</h4>
+                <button
+                  className="btn btn-sm btn-primary"
+                  onClick={addImages}
+                >
+                  Add Images
+                </button>
+              </Form.Group>
+              {propertyData?.pictures?.map((item, index) => {
+                return (
+                  <>
+                    <Form.Group key={index} className="mb-3 mt-3 d-flex justify-content-between align-items-center">
+                      <h5> Image {index + 1}</h5>
+                      <button
+                        className="btn btn-sm btn-danger"
+                        onClick={(e) => removeImage(index,e)}
+                      >
+                        Remove  {index + 1}
+                      </button>
+                    </Form.Group>
+                    <Form.Control type="file" onChange={(e) => handleImage(index, e)} name="" placeholder="Choose Image" />
+                  </>
+                )
+              })
+              }
+            </Form.Group>
+
 
           {/* 6th row */}
           <div className="addproperty-alignRow">

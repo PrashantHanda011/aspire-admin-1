@@ -17,6 +17,8 @@ export const getPropertyById = (propid) =>
 export const updateProperty = (data) => API.post('/prop/updateProperty', data);
 export const getAllRequirements = () => API.get('/prop/getRequirements');
 
+
+
 // UnitDetails
 export const addUnitDetail = (data) => API.post('/prop/addUnitDetail', data);
 export const getUnitDetailByPropertyId = (propid) =>
@@ -50,6 +52,7 @@ export const updateBlog = (data) => API.post('/blog/updateBlog', data);
 //Career
 
 export const getAllCareer = () => API.get('/cr/getAllCareer');
+export const getAllCareerApplication = () => API.get('/cr/getAllApplications');
 export const getCareerById = (blogid) =>
   API.post('/cr/getCareerById', { id: blogid });
 export const addCareer = (data) => API.post('/cr/addCareer', data);

@@ -16,7 +16,6 @@ const AddCareerForm = () => {
     department: '',
     name: '',
     experience: '',
-    salary: '',
     bannerUrl: '',
   });
 
@@ -26,7 +25,6 @@ const AddCareerForm = () => {
     department: false,
     name: false,
     experience: false,
-    salary: false,
     bannerUrl: false,
   });
 
@@ -156,7 +154,7 @@ const AddCareerForm = () => {
               />
             </div>
             {/* Salary (in Lpa)*/}
-            <div className="addcareer-inputFieldDiv">
+            {/* <div className="addcareer-inputFieldDiv">
               <label className="addcareer-inputLabel">
                 Salary (in Lpa){' '}
                 <span style={{ color: 'red', fontSize: '1.2rem' }}>*</span>{' '}
@@ -169,11 +167,7 @@ const AddCareerForm = () => {
                 placeholder="Salary"
                 type="text"
               />
-            </div>
-          </div>
-          {/* 3rd row */}
-
-          <div className="addcareer-alignRow">
+            </div> */}
             {/* Experience*/}
             <div className="addcareer-inputFieldDiv form-group">
               <label className="addcareer-inputLabel">
@@ -189,6 +183,11 @@ const AddCareerForm = () => {
                 onChange={handleInputchange('experience')}
               />
             </div>
+          </div>
+          {/* 3rd row */}
+
+          <div className="addcareer-alignRow">
+            
             {/* banner Image */}
             <div className="addcareer-inputFieldDiv form-group">
               <label className="addcareer-inputLabel">

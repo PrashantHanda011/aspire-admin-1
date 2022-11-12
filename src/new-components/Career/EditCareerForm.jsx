@@ -19,7 +19,6 @@ const EditCareerForm = () => {
     department: false,
     name: false,
     experience: false,
-    salary: false,
     bannerUrl: false,
   });
   const getCareerData = async () => {
@@ -87,7 +86,6 @@ const EditCareerForm = () => {
       department: careerData.department === '' ? true : false,
       name: careerData.name === '' ? true : false,
       experience: careerData.experience === '' ? true : false,
-      salary: careerData.salary === '' ? true : false,
       bannerUrl: careerData.bannerUrl === '' ? true : false,
     };
     setError(updatedError);
@@ -182,29 +180,8 @@ const EditCareerForm = () => {
                       onChange={handleInputchange('location')}
                     />
                   </div>
-                  {/* Salary (in Lpa)*/}
-                  <div className="addcareer-inputFieldDiv">
-                    <label className="addcareer-inputLabel">
-                      Salary (in Lpa)
-                      <span style={{ color: 'red', fontSize: '1.2rem' }}>
-                        *
-                      </span>{' '}
-                    </label>
-                    <input
-                      name="salary"
-                      id={error.salary ? 'red-border' : ''}
-                      value={careerData.salary}
-                      onChange={handleInputchange('salary')}
-                      className="addcareer-inputField"
-                      placeholder="Salary"
-                      type="text"
-                    />
-                  </div>
-                </div>
-                {/* 3rd row */}
-
-                <div className="addcareer-alignRow">
-                  {/* Author PIctue */}
+                
+                  {/* Experience*/}
                   <div className="addcareer-inputFieldDiv form-group">
                     <label className="addcareer-inputLabel">
                       Experience{' '}
@@ -222,6 +199,30 @@ const EditCareerForm = () => {
                       onChange={handleInputchange('experience')}
                     />
                   </div>
+                  {/* Salary (in Lpa)*/}
+                  {/* <div className="addcareer-inputFieldDiv">
+                    <label className="addcareer-inputLabel">
+                      Salary (in Lpa)
+                      <span style={{ color: 'red', fontSize: '1.2rem' }}>
+                        *
+                      </span>{' '}
+                    </label>
+                    <input
+                      name="salary"
+                      id={error.salary ? 'red-border' : ''}
+                      value={careerData.salary}
+                      onChange={handleInputchange('salary')}
+                      className="addcareer-inputField"
+                      placeholder="Salary"
+                      type="text"
+                    />
+                  </div> */}
+
+                </div>
+                {/* 3rd row */}
+
+                <div className="addcareer-alignRow">
+                
                   <div className="addcareer-inputFieldDiv form-group">
                     <label className="addcareer-inputLabel">
                       Banner Image
