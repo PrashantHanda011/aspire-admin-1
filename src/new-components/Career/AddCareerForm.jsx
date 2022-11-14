@@ -186,9 +186,8 @@ const AddCareerForm = () => {
           </div>
           {/* 3rd row */}
 
-          <div className="addcareer-alignRow">
+          {/* <div className="addcareer-alignRow">
             
-            {/* banner Image */}
             <div className="addcareer-inputFieldDiv form-group">
               <label className="addcareer-inputLabel">
                 Banner Image
@@ -203,7 +202,7 @@ const AddCareerForm = () => {
                 id={error.bannerUrl ? 'red-border' : ''}
               />
             </div>
-          </div>
+          </div> */}
           {/* 4th Row  */}
           <div className="addcareer-alignRow">
             <div className="addcareer-textFieldDiv">

@@ -220,7 +220,7 @@ const EditCareerForm = () => {
 
                 </div>
                 {/* 3rd row */}
-
+{/* 
                 <div className="addcareer-alignRow">
                 
                   <div className="addcareer-inputFieldDiv form-group">
@@ -239,9 +239,9 @@ const EditCareerForm = () => {
                       id={error.bannerUrl ? 'red-border' : ''}
                     />
                   </div>
-                </div>
+                </div> */}
                 {/* Banner Image Preview */}
-                <div className="addcareer-alignRow">
+                {/* <div className="addcareer-alignRow">
                   <div className="addcareer-inputFieldDiv-image">
                     <img
                       src={careerData.bannerUrl}
@@ -250,7 +250,7 @@ const EditCareerForm = () => {
                       alt="product image"
                     />
                   </div>
-                </div>
+                </div> */}
                 {/* 4th Row  */}
                 <div className="addcareer-alignRow">
                   <div className="addcareer-textFieldDiv">
