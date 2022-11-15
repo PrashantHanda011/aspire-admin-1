@@ -5,7 +5,10 @@ import { addProperty } from '../../redux/api';
 import { storage } from '../../firebase';
 import Select from 'react-select';
 import { Form } from 'react-bootstrap';
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 import { ref, getDownloadURL, uploadBytesResumable } from 'firebase/storage';
+
 const AddPropertyForm = () => {
   const isFirstRender = useRef(true);
   const [spinn, setspinn] = useState(false);
@@ -81,6 +84,44 @@ const AddPropertyForm = () => {
     description: false,
   });
 
+
+  //description
+  AddPropertyForm.formats = [
+    "header",
+    "font",
+    "size",
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "blockquote",
+    "list",
+    "bullet",
+    "indent",
+    "link",
+    "image",
+    "video",
+  ];
+  AddPropertyForm.modules = {
+    toolbar: [
+      [{ header: "1" }, { header: "2" }, { font: [] }],
+      [{ size: [] }],
+      ["bold", "italic", "underline", "strike", "blockquote"],
+      [
+        { list: "ordered" },
+        { list: "bullet" },
+        { indent: "-1" },
+        { indent: "+1" },
+      ],
+      ["link", "image", "video"],
+      ["clean"],
+    ],
+    clipboard: {
+      // toggle to add extra line breaks when pasting HTML:
+      matchVisual: false,
+    },
+  };
+
   const handleInputchange = (name) => (event) => {
     setpropertyData({ ...propertyData, [name]: event.target.value });
   };
@@ -93,7 +134,7 @@ const AddPropertyForm = () => {
       const uploadTask = uploadBytesResumable(storageRef, file);
       uploadTask.on(
         'state_changed',
-        (snapshot) => {},
+        (snapshot) => { },
         function error(err) {
           reject(err);
         },
@@ -122,7 +163,7 @@ const AddPropertyForm = () => {
         ...propertyData,
         ready: propertyData.ready === 'YES' ? true : false,
         amenities: selectedAmenities.map((amen) => amen.value),
-        area: propertyData.area ,
+        area: propertyData.area,
         developer: {},
         unitDetails: [],
       };
@@ -179,7 +220,7 @@ const AddPropertyForm = () => {
     }
   }, [error]);
 
-// images
+  // images
 
   //images
 
@@ -193,40 +234,40 @@ const AddPropertyForm = () => {
   };
 
 
-  const removeImage = (index,e) => {
+  const removeImage = (index, e) => {
     e.preventDefault();
     let data = [...propertyData?.pictures];
     data.splice(index, 1);
     setpropertyData({ ...propertyData, pictures: data });
   };
 
-  const handleImage = (index,e ) => {
-   e.preventDefault()
-   let data = [...propertyData?.pictures];
+  const handleImage = (index, e) => {
+    e.preventDefault()
+    let data = [...propertyData?.pictures];
 
-    let image=e.target.files[0]
-   if (!image) return;
-   const storageRef = ref(storage, `/Images/${image.name}`);
-   const uploadTask = uploadBytesResumable(storageRef, image);
-   uploadTask.on(
-     'state_changed',
-     (snap) => {
-       const percentUploaded = Math.round((snap.bytesTransferred / snap.totalBytes) * 100);
-//       setImagePercent( percentUploaded ); 
+    let image = e.target.files[0]
+    if (!image) return;
+    const storageRef = ref(storage, `/Images/${image.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, image);
+    uploadTask.on(
+      'state_changed',
+      (snap) => {
+        const percentUploaded = Math.round((snap.bytesTransferred / snap.totalBytes) * 100);
+        //       setImagePercent( percentUploaded ); 
 
-     },
-     (error) => {
-       alert(error);
-     },
-     () => {
-       getDownloadURL(uploadTask.snapshot.ref).then((imgurl) => {
-        data[index] = imgurl;
-        setpropertyData({ ...propertyData, pictures: data });
-       });
-     })
+      },
+      (error) => {
+        alert(error);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((imgurl) => {
+          data[index] = imgurl;
+          setpropertyData({ ...propertyData, pictures: data });
+        });
+      })
   };
 
-console.log(propertyData)
+  console.log(propertyData)
 
   return (
 
@@ -338,7 +379,7 @@ console.log(propertyData)
             {/* Units Left */}
             <div className="addproperty-inputFieldDiv">
               <label className="addproperty-inputLabel">
-                Units Left{' '}
+                Total Units {' '}
                 <span style={{ color: 'red', fontSize: '1.2rem' }}>*</span>{' '}
               </label>
               <input
@@ -398,36 +439,36 @@ console.log(propertyData)
             </div> */}
           </div>
           <Form.Group className="mb-5" controlId="formBasicEmail">
-              <Form.Group
-                className="mb-3 mt-4  d-flex justify-content-between align-items-center"
-                controlId="formBasicPassword"
+            <Form.Group
+              className="mb-3 mt-4  d-flex justify-content-between align-items-center"
+              controlId="formBasicPassword"
+            >
+              <h4>Add Images</h4>
+              <button
+                className="btn btn-sm btn-primary"
+                onClick={addImages}
               >
-                <h4>Add Images</h4>
-                <button
-                  className="btn btn-sm btn-primary"
-                  onClick={addImages}
-                >
-                  Add Images
-                </button>
-              </Form.Group>
-              {propertyData?.pictures?.map((item, index) => {
-                return (
-                  <>
-                    <Form.Group key={index} className="mb-3 mt-3 d-flex justify-content-between align-items-center">
-                      <h5> Image {index + 1}</h5>
-                      <button
-                        className="btn btn-sm btn-danger"
-                        onClick={(e) => removeImage(index,e)}
-                      >
-                        Remove  {index + 1}
-                      </button>
-                    </Form.Group>
-                    <Form.Control type="file" onChange={(e) => handleImage(index, e)} name="" placeholder="Choose Image" />
-                  </>
-                )
-              })
-              }
+                Add Images
+              </button>
             </Form.Group>
+            {propertyData?.pictures?.map((item, index) => {
+              return (
+                <>
+                  <Form.Group key={index} className="mb-3 mt-3 d-flex justify-content-between align-items-center">
+                    <h5> Image {index + 1}</h5>
+                    <button
+                      className="btn btn-sm btn-danger"
+                      onClick={(e) => removeImage(index, e)}
+                    >
+                      Remove  {index + 1}
+                    </button>
+                  </Form.Group>
+                  <Form.Control type="file" onChange={(e) => handleImage(index, e)} name="" placeholder="Choose Image" />
+                </>
+              )
+            })
+            }
+          </Form.Group>
 
 
           {/* 6th row */}
@@ -456,13 +497,17 @@ console.log(propertyData)
                 Description{' '}
                 <span style={{ color: 'red', fontSize: '1.2rem' }}>*</span>{' '}
               </label>
-              <textarea
-                className="addproperty-textField"
-                onChange={handleInputchange('description')}
-                name="Description"
-                placeholder="Property Description"
-                id={error.description ? 'red-border' : ''}
-              ></textarea>
+              <ReactQuill
+                className="addblog-textField"
+                placeholder="Add Blog Content here"
+                id={error.content ? "red-border" : ""}
+                modules={AddPropertyForm.modules}
+                formats={AddPropertyForm.formats}
+                theme="snow"
+                onChange={(content, delta, source, editor) => {
+                  setpropertyData({ ...propertyData, description: editor.getHTML() });
+                }}
+              />
             </div>
           </div>
 

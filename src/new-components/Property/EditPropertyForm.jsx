@@ -7,6 +7,10 @@ import LoadingPage from '../utils/LoadingPage';
 import Select from 'react-select';
 import { ref, getDownloadURL, uploadBytesResumable } from 'firebase/storage';
 import { Form } from 'react-bootstrap';
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+
+
 const EditPropertyForm = () => {
   const history = useHistory();
   const { id } = useParams();
@@ -70,7 +74,47 @@ const EditPropertyForm = () => {
     description: '',
   });
 
+
+  //description
+  EditPropertyForm.formats = [
+    "header",
+    "font",
+    "size",
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "blockquote",
+    "list",
+    "bullet",
+    "indent",
+    "link",
+    "image",
+    "video",
+  ];
+  EditPropertyForm.modules = {
+    toolbar: [
+      [{ header: "1" }, { header: "2" }, { font: [] }],
+      [{ size: [] }],
+      ["bold", "italic", "underline", "strike", "blockquote"],
+      [
+        { list: "ordered" },
+        { list: "bullet" },
+        { indent: "-1" },
+        { indent: "+1" },
+      ],
+      ["link", "image", "video"],
+      ["clean"],
+    ],
+    clipboard: {
+      // toggle to add extra line breaks when pasting HTML:
+      matchVisual: false,
+    },
+  };
+
+
   console.log(propertyData)
+  
   const [error, setError] = useState({
     name: false,
     location: false,
@@ -123,6 +167,7 @@ const EditPropertyForm = () => {
       }),
     });
   };
+  
   const handleInputchange = (name) => (event) => {
     setpropertyData({ ...propertyData, [name]: event.target.value });
   };
@@ -133,7 +178,7 @@ const EditPropertyForm = () => {
       const uploadTask = uploadBytesResumable(storageRef, file);
       uploadTask.on(
         'state_changed',
-        (snapshot) => {},
+        (snapshot) => { },
         function error(err) {
           reject(err);
         },
@@ -145,6 +190,7 @@ const EditPropertyForm = () => {
       );
     });
   }
+  
   const handleFileInputchange = async (e) => {
     e.preventDefault();
     const promises = [];
@@ -167,7 +213,7 @@ const EditPropertyForm = () => {
         amenities: selectedAmenities.map((amen) => amen.value),
         area: propertyData.area + 'sqft',
       });
-      // history.push('/property');
+       history.push('/property');
       setspinn(false);
     } catch (error) {
       console.log(error);
@@ -222,7 +268,7 @@ const EditPropertyForm = () => {
 
 
 
-  
+
   //images
 
   const addImages = (e) => {
@@ -235,40 +281,40 @@ const EditPropertyForm = () => {
   };
 
 
-  const removeImage = (index,e) => {
+  const removeImage = (index, e) => {
     e.preventDefault();
     let data = [...propertyData?.pictures];
     data.splice(index, 1);
     setpropertyData({ ...propertyData, pictures: data });
   };
 
-  const handleImage = (index,e ) => {
-   e.preventDefault()
-   let data = [...propertyData?.pictures];
+  const handleImage = (index, e) => {
+    e.preventDefault()
+    let data = [...propertyData?.pictures];
 
-    let image=e.target.files[0]
-   if (!image) return;
-   const storageRef = ref(storage, `/Images/${image.name}`);
-   const uploadTask = uploadBytesResumable(storageRef, image);
-   uploadTask.on(
-     'state_changed',
-     (snap) => {
-       const percentUploaded = Math.round((snap.bytesTransferred / snap.totalBytes) * 100);
-//       setImagePercent( percentUploaded ); 
+    let image = e.target.files[0]
+    if (!image) return;
+    const storageRef = ref(storage, `/Images/${image.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, image);
+    uploadTask.on(
+      'state_changed',
+      (snap) => {
+        const percentUploaded = Math.round((snap.bytesTransferred / snap.totalBytes) * 100);
+        //       setImagePercent( percentUploaded ); 
 
-     },
-     (error) => {
-       alert(error);
-     },
-     () => {
-       getDownloadURL(uploadTask.snapshot.ref).then((imgurl) => {
-        data[index] = imgurl;
-        setpropertyData({ ...propertyData, pictures: data });
-       });
-     })
+      },
+      (error) => {
+        alert(error);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((imgurl) => {
+          data[index] = imgurl;
+          setpropertyData({ ...propertyData, pictures: data });
+        });
+      })
   };
 
-console.log(propertyData)
+  console.log(propertyData)
 
 
   return (
@@ -503,7 +549,7 @@ console.log(propertyData)
             {/* 8th row   :- Image Preview */}
             <div className="addproperty-alignRow">
               <div className="addproperty-textFieldDiv d-flex flex-wrap flex-row gap-5">
-                
+
               </div>
             </div>
             <Form.Group className="mb-5" controlId="formBasicEmail">
@@ -526,14 +572,14 @@ console.log(propertyData)
                       <h5> Image {index + 1}</h5>
                       <button
                         className="btn btn-sm btn-danger"
-                        onClick={(e) => removeImage(index,e)}
+                        onClick={(e) => removeImage(index, e)}
                       >
                         Remove  {index + 1}
                       </button>
                     </Form.Group>
-                    <Form.Control type="file"  onChange={(e) => handleImage(index, e)} name="" placeholder="Choose Image" />
+                    <Form.Control type="file" onChange={(e) => handleImage(index, e)} name="" placeholder="Choose Image" />
 
-                    <img src={item} alt="Property-img" style={{height:"80px",width:"100px"}} className="my-2" />
+                    <img src={item} alt="Property-img" style={{ height: "80px", width: "100px" }} className="my-2" />
                   </>
                 )
               })
@@ -550,14 +596,18 @@ console.log(propertyData)
                   Description{' '}
                   <span style={{ color: 'red', fontSize: '1.2rem' }}>*</span>{' '}
                 </label>
-                <textarea
-                  className="addproperty-textField"
-                  onChange={handleInputchange('description')}
-                  name="Description"
-                  placeholder="Property Description"
-                  id={error.description ? 'red-border' : ''}
-                  value={propertyData.description}
-                ></textarea>
+                  <ReactQuill
+                    className="addblog-textField"
+                    placeholder="Add Blog Content here"
+                    id={error.content ? "red-border" : ""}
+                    modules={EditPropertyForm.modules}
+                    formats={EditPropertyForm.formats}
+                    defaultValue={propertyData?.description}
+                    theme="snow"
+                    onChange={(content, delta, source, editor) => {
+                      setpropertyData({ ...propertyData, description: editor.getHTML() });
+                    }}
+                  />
               </div>
             </div>
 

@@ -25,7 +25,6 @@ const AddCareerForm = () => {
     department: false,
     name: false,
     experience: false,
-    bannerUrl: false,
   });
 
   const handleInputchange = (name) => (event) => {
@@ -88,9 +87,7 @@ const AddCareerForm = () => {
         !error.description &&
         !error.department &&
         !error.name &&
-        !error.experience &&
-        !error.salary &&
-        !error.bannerUrl
+        !error.experience 
       ) {
         setspinn(true);
         handlerValidatedFormSubmit();

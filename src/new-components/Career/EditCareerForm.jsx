@@ -19,17 +19,13 @@ const EditCareerForm = () => {
     department: false,
     name: false,
     experience: false,
-    bannerUrl: false,
   });
   const getCareerData = async () => {
     setLoading(true);
     try {
       const res = await getCareerById(id);
       const cdata = res.data.data;
-      setCareerData({
-        ...cdata,
-        salary: cdata.salary.slice(0, -1),
-      });
+      setCareerData(cdata);
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -86,7 +82,6 @@ const EditCareerForm = () => {
       department: careerData.department === '' ? true : false,
       name: careerData.name === '' ? true : false,
       experience: careerData.experience === '' ? true : false,
-      bannerUrl: careerData.bannerUrl === '' ? true : false,
     };
     setError(updatedError);
   };
@@ -101,9 +96,7 @@ const EditCareerForm = () => {
         !error.description &&
         !error.department &&
         !error.name &&
-        !error.experience &&
-        !error.salary &&
-        !error.bannerUrl
+        !error.experience 
       ) {
         setspinn(true);
         handlerValidatedFormSubmit();

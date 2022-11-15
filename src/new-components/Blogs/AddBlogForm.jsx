@@ -17,10 +17,8 @@ const AddBlogForm = () => {
     title: "",
     picture: "",
     authorName: "",
-    authorPicture: "",
     category: "",
     timeToRead: "",
-    tags: "", //change later to array
     content: "",
   });
 
@@ -28,10 +26,8 @@ const AddBlogForm = () => {
     title: false,
     picture: false,
     authorName: false,
-    authorPicture: false,
     category: false,
     timeToRead: false,
-    tags: false,
     content: false,
   });
   const handleInputContentchange = (value) => {
@@ -100,11 +96,7 @@ const AddBlogForm = () => {
 
   const handlerValidatedFormSubmit = async () => {
     try {
-      const payloaddata = {
-        ...blogData,
-        tags: blogData.tags.split(" ").filter((t) => t.length), //later change to tags array
-      };
-      await addBlog(payloaddata);
+      await addBlog(blogData);
       history.push("/blogs");
       setspinn(false);
     } catch (error) {
@@ -119,10 +111,8 @@ const AddBlogForm = () => {
       title: blogData.title === "" ? true : false,
       picture: blogData.picture === "" ? true : false,
       authorName: blogData.authorName === "" ? true : false,
-      authorPicture: blogData.authorPicture === "" ? true : false,
       category: blogData.category === "" ? true : false,
       timeToRead: blogData.timeToRead === "" ? true : false,
-      tags: blogData.tags === "" ? true : false, //later change to tags array
       content: blogData.content === "" ? true : false,
     };
     setError(updatedError);
@@ -136,10 +126,8 @@ const AddBlogForm = () => {
         !error.title &&
         !error.picture &&
         !error.authorName &&
-        !error.authorPicture &&
         !error.category &&
         !error.timeToRead &&
-        !error.tags &&
         !error.content
       ) {
         setspinn(true);
@@ -226,21 +214,6 @@ const AddBlogForm = () => {
           {/* 3rd row */}
 
           <div className="addblog-alignRow">
-            {/* Author PIctue */}
-            <div className="addblog-inputFieldDiv">
-              <label className="addblog-inputLabel">
-                Author Profile{" "}
-                <span style={{ color: "red", fontSize: "1.2rem" }}>*</span>{" "}
-              </label>
-              <input
-                type="file"
-                name="profilePic"
-                placeholder="Author Profile"
-                className="addblog-inputField"
-                onChange={handleFileInputchange("authorPicture")}
-                id={error.authorPicture ? "red-border" : ""}
-              />
-            </div>
             {/* Blog Picture */}
             <div className="addblog-inputFieldDiv">
               <label className="addblog-inputLabel">
@@ -258,22 +231,6 @@ const AddBlogForm = () => {
             </div>
           </div>
 
-          {/* 4th row */}
-          <div className="addblog-alignRow">
-            {/* Tags */}
-            <div className="addblog-textFieldDiv">
-              <label className="addblog-inputLabel">
-                Tags <span style={{ color: "red", fontSize: "1.2rem" }}>*</span>{" "}
-              </label>
-              <input
-                className="addblog-inputField"
-                onChange={handleInputchange("tags")}
-                type="text"
-                name="tag"
-                id={error.tags ? "red-border" : ""}
-              />
-            </div>
-          </div>
           {/* 5th row */}
           <div className="addblog-alignRow">
             {/*content*/}

@@ -21,10 +21,8 @@ const EditBlogForm = () => {
     title: false,
     picture: false,
     authorName: false,
-    authorPicture: false,
     category: false,
     timeToRead: false,
-    tags: false,
     content: false,
   });
   const getBlogData = async () => {
@@ -130,10 +128,8 @@ const EditBlogForm = () => {
       title: blogData.title === '' ? true : false,
       picture: blogData.picture === '' ? true : false,
       authorName: blogData.authorName === '' ? true : false,
-      authorPicture: blogData.authorPicture === '' ? true : false,
       category: blogData.category === '' ? true : false,
       timeToRead: blogData.timeToRead === '' ? true : false,
-      tags: blogData.tags === '' ? true : false, //later change to tags array
       content: blogData.content === '' ? true : false,
     };
     setError(updatedError);
@@ -147,10 +143,8 @@ const EditBlogForm = () => {
         !error.title &&
         !error.picture &&
         !error.authorName &&
-        !error.authorPicture &&
         !error.category &&
         !error.timeToRead &&
-        !error.tags &&
         !error.content
       ) {
         setspinn(true);
@@ -217,7 +211,7 @@ const EditBlogForm = () => {
                   className="addblog-inputField"
                   onChange={handleInputchange('category')}
                 >
-                  <option>Select Category</option>
+                  <option>~ {blogData.category} ~ </option>
                   <option value="Knowledge Seriess">Knowledge Series</option>
                   <option value="News & Updates">News & Updates</option>
                   <option value="Locality Bytes">Locality Bytes</option>
@@ -244,7 +238,7 @@ const EditBlogForm = () => {
             {/* 3rd row */}
             <div className="addblog-alignRow">
               {/* Author PIctue */}
-              <div className="addblog-inputFieldDiv">
+              {/* <div className="addblog-inputFieldDiv">
                 <label className="addblog-inputLabel">
                   Author Profile{' '}
                   <span style={{ color: 'red', fontSize: '1.2rem' }}>*</span>{' '}
@@ -265,7 +259,7 @@ const EditBlogForm = () => {
                     alt="product image"
                   />
                 </div>
-              </div>
+              </div> */}
               {/* Blog Picture */}
               <div className="addblog-inputFieldDiv">
                 <label className="addblog-inputLabel">
@@ -292,24 +286,7 @@ const EditBlogForm = () => {
             </div>
 
             {/* 4th row */}
-            <div className="addblog-alignRow">
-              {/* Tags */}
-              <div className="addblog-textFieldDiv">
-                <label className="addblog-inputLabel">
-                  Tags{' '}
-                  <span style={{ color: 'red', fontSize: '1.2rem' }}>*</span>{' '}
-                </label>
-                <input
-                  className="addblog-inputField"
-                  value={blogData.tags}
-                  onChange={handleInputchange('tags')}
-                  type="text"
-                  name="tag"
-                  id={error.tags ? 'red-border' : ''}
-                />
-              </div>
-            </div>
-
+            
             {/* 5th row */}
             <div className="addblog-alignRow">
               {/*content*/}
