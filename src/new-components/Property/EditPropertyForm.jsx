@@ -211,7 +211,6 @@ const EditPropertyForm = () => {
         ...propertyData,
         ready: propertyData.ready === 'YES' ? true : false,
         amenities: selectedAmenities.map((amen) => amen.value),
-        area: propertyData.area + 'sqft',
       });
        history.push('/property');
       setspinn(false);
