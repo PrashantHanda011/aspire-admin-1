@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { deleteProperty, updateProperty } from "../../../redux/api";
+import { deleteProperty, updateProject, updateProperty } from "../../../redux/api";
 import DeleteModal from "../../utils/DeleteModal";
 const PtableRow = ({ index, property, allproperty, setallproperty }) => {
   const [deleteModalOpen, setdeleteModalOpen] = useState(false);
@@ -51,6 +51,23 @@ const PtableRow = ({ index, property, allproperty, setallproperty }) => {
     }
   }, [ConfirmDelete]);
 
+
+
+  const [featured, setfeatured] = useState(property.isFeatured)
+  const handleFeature = async()=>{
+    try {
+      const newdata = {
+        id:property._id,
+        isFeatured: !property.isFeatured
+      }
+      const data =await updateProperty(newdata);
+      console.log(data)
+      setfeatured(!featured)
+    } catch (error) {
+      
+    }
+  }
+
   return (
     <>
       <tr>
@@ -72,6 +89,16 @@ const PtableRow = ({ index, property, allproperty, setallproperty }) => {
           </select>
         </td>
         <td>{property.location}</td>
+        <td className="w-100">
+              {
+                featured ? (
+                  <button onClick={handleFeature} className=" btn btn-danger"> Unfeature</button>
+                ):(
+                  <button onClick={handleFeature} className=" btn btn-success">Feature</button>
+                )
+              }
+        </td>
+
         <td>{property.area}</td>
         <td>{property.ready ? "Yes" : "No"}</td>
         <td>{property.unitsLeft}</td>

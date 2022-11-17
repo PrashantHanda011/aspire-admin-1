@@ -7,6 +7,8 @@ const Btable = ({ propertyData }) => {
     setallproperty(propertyData);
   }, [propertyData]);
 
+
+  
   const [allproperty, setallproperty] = useState(propertyData);
   return (
     <div className="table-wrapper" id="#scrollBar">
@@ -17,6 +19,7 @@ const Btable = ({ propertyData }) => {
             <th>Name</th>
             <th>Order</th>
             <th>Location</th>
+            <th style={{minWidth:"100%"}}>Featured</th>
             <th>Area</th>
             <th>Ready To Move</th>
             <th>Units Left</th>

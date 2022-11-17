@@ -61,6 +61,7 @@ const EditPropertyForm = () => {
   const [propertyData, setpropertyData] = useState({
     name: '',
     location: '',
+    broucher:"",
     lat: '',
     lng: '',
     city: '',
@@ -117,6 +118,7 @@ const EditPropertyForm = () => {
   
   const [error, setError] = useState({
     name: false,
+    broucher:"",
     location: false,
     lat: false,
     lng: false,
@@ -314,6 +316,29 @@ const EditPropertyForm = () => {
   };
 
   console.log(propertyData)
+  
+  const handleBroucher = ( e) => {
+    e.preventDefault()
+    let image = e.target.files[0]
+    if (!image) return;
+    const storageRef = ref(storage, `/Images/${image.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, image);
+    uploadTask.on(
+      'state_changed',
+      (snap) => {
+        const percentUploaded = Math.round((snap.bytesTransferred / snap.totalBytes) * 100);
+        //       setImagePercent( percentUploaded ); 
+
+      },
+      (error) => {
+        alert(error);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((imgurl) => {
+          setpropertyData({ ...propertyData, broucher: imgurl });
+        });
+      })
+  };
 
 
   return (
@@ -586,6 +611,10 @@ const EditPropertyForm = () => {
             </Form.Group>
 
 
+            <Form.Group>
+          <h5>Add Broucher</h5>
+          <Form.Control type="file" onChange={handleBroucher } name="" placeholder="Choose Image" />
+          </Form.Group>
 
             {/* 9th row */}
             <div className="addproperty-alignRow">

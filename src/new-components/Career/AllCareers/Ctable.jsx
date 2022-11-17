@@ -16,7 +16,6 @@ const Ctable = ({ careerData }) => {
             <th>Name</th>
             <th>Description</th>
             <th>Experience</th>
-            <th>Salary</th>
             <th>Location</th>
             <th style={{ textAlign: 'center' }}>Action</th>
           </tr>

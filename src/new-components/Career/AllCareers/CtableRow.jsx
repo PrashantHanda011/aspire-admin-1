@@ -42,7 +42,6 @@ const CtableRow = ({ index, career, allcareers, setallcareers }) => {
         <td>{career.name}</td>
         <td>{career.description}</td>
         <td>{career.experience}</td>
-        <td>{career.salary}</td>
         <td>{career.location}</td>
         <td className="text-right">
           <div

@@ -16,6 +16,7 @@ const Btable = ({ blogData }) => {
             <th>ID</th>
             <th>Author</th>
             <th>Date</th>
+            <th>Feature</th>
             <th>Read Time</th>
             <th>Title</th>
             <th>Category</th>

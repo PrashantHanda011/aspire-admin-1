@@ -57,12 +57,14 @@ const AddPropertyForm = () => {
   const [propertyData, setpropertyData] = useState({
     name: '',
     location: '',
+    broucher:"",
     lat: '',
     lng: '',
     city: '',
     area: '',
     price: '',
     ready: '',
+    isFeatured:false,
     unitsLeft: '',
     amenities: '',
     pictures: [],
@@ -147,6 +149,7 @@ const AddPropertyForm = () => {
       );
     });
   }
+
   const handleFileInputchange = async (e) => {
     e.preventDefault();
     const promises = [];
@@ -267,8 +270,31 @@ const AddPropertyForm = () => {
       })
   };
 
-  console.log(propertyData)
+  
+  const handleBroucher = ( e) => {
+    e.preventDefault()
+    let image = e.target.files[0]
+    if (!image) return;
+    const storageRef = ref(storage, `/Images/${image.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, image);
+    uploadTask.on(
+      'state_changed',
+      (snap) => {
+        const percentUploaded = Math.round((snap.bytesTransferred / snap.totalBytes) * 100);
+        //       setImagePercent( percentUploaded ); 
 
+      },
+      (error) => {
+        alert(error);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((imgurl) => {
+          setpropertyData({ ...propertyData, broucher: imgurl });
+        });
+      })
+  };
+
+  
   return (
 
     <form>
@@ -468,6 +494,11 @@ const AddPropertyForm = () => {
               )
             })
             }
+          </Form.Group>
+          
+          <Form.Group>
+          <h5>Add Broucher</h5>
+          <Form.Control type="file" onChange={handleBroucher } name="" placeholder="Choose Image" />
           </Form.Group>
 
 
