@@ -57,7 +57,9 @@ const UDtableRow = ({
     <>
       <tr>
         <td>{index + 1}</td>
-        <td>{bhk}</td>
+        <td>
+          <img src={detaildata.floorPlan} height={100} width={100} alt="unitimg" />
+        </td>
         <td>{detaildata.range}</td>
         <td>{detaildata.size}</td>
         <td>{detaildata.price}</td>

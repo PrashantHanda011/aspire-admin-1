@@ -4,6 +4,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import { addUnitDetail } from '../../redux/api';
 import { storage } from '../../firebase';
 import { ref, getDownloadURL, uploadBytesResumable } from 'firebase/storage';
+import { Button } from 'react-bootstrap';
 
 const AddUnitDetailsForm = () => {
   const isFirstRender = useRef(true);
@@ -19,7 +20,6 @@ const AddUnitDetailsForm = () => {
   });
 
   const [error, setError] = useState({
-    bhk: false,
     range: false,
     floorPlan: false,
     size: false,
@@ -34,14 +34,16 @@ const AddUnitDetailsForm = () => {
     setbhk(event.target.value);
   };
 
-  const handlerValidatedFormSubmit = async () => {
+  const handlerValidatedFormSubmit = async (e) => {
+    setspinn(true)
+    e.preventDefault()
     try {
       const payloaddata = {
         id: id,
-        bhk: bhk,
+        bhk: detailData.range,
         detail: {
           ...detailData,
-          price: detailData.price + 'L',
+          floorPlan:detailData.floorPlan
         },
       };
       await addUnitDetail(payloaddata);
@@ -72,35 +74,6 @@ const AddUnitDetailsForm = () => {
     );
   };
 
-  const handlesubmit = (e) => {
-    e.preventDefault();
-    const updatedError = {
-      bhk: bhk === '' ? true : false,
-      range: detailData.range === '' ? true : false,
-      floorPlan: detailData.floorPlan === '' ? true : false,
-      size: detailData.size === '' ? true : false,
-      price: detailData.price === '' ? true : false,
-    };
-    setError(updatedError);
-  };
-  useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-      return;
-    } else {
-      if (
-        !error.bhk &&
-        !error.range &&
-        !error.floorPlan &&
-        !error.size &&
-        !error.price
-      ) {
-        setspinn(true);
-        handlerValidatedFormSubmit();
-      }
-    }
-  }, [error]);
-
   return (
     <form>
       <div className="unitdetail-container">
@@ -108,31 +81,16 @@ const AddUnitDetailsForm = () => {
           {/* 1st row */}
           <div className="unitdetail-alignRow">
             {/* BHK */}
-            <div className="unitdetail-inputFieldDiv form-group">
+            <div className="unitdetail-textFieldDiv form-group">
               <label className="unitdetail-inputLabel ">
                 BHK <span style={{ color: 'red', fontSize: '1.2rem' }}>*</span>{' '}
               </label>
               <input
                 type="text"
-                name="BHK"
+                name="range"
                 placeholder="BHK"
                 className="unitdetail-inputField"
-                id={error.bhk ? 'red-border' : ''}
-                onChange={handleBhkInputchange}
-              />
-            </div>
-            {/* Facing*/}
-            <div className="unitdetail-inputFieldDiv form-group">
-              <label className="unitdetail-inputLabel">
-                Range{' '}
-                <span style={{ color: 'red', fontSize: '1.2rem' }}>*</span>{' '}
-              </label>
-              <input
-                type="text"
-                id={error.facing ? 'red-border' : ''}
-                name="range"
-                placeholder="Range"
-                className="unitdetail-inputField"
+                id={error.range ? 'red-border' : ''}
                 onChange={handleInputchange('range')}
               />
             </div>
@@ -188,17 +146,19 @@ const AddUnitDetailsForm = () => {
               />
             </div>
           </div>
-          {/* Submit */}`
+          {/* Submit */}
           <div className="unitdetail-submitDetailDiv">
             <button
               className="unitdetail-submitDetailBtn"
-              onClick={handlesubmit}
+              onClick={handlerValidatedFormSubmit}
+              disabled={detailData.floorPlan ? (false):(true)}
             >
               Add Unit
               {spinn ? (
                 <div
                   class="spinner-border spinner-border-sm text-white mx-2"
                   role="status"
+                  
                 >
                   <span class="visually-hidden">Loading...</span>
                 </div>

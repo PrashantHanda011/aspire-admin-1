@@ -17,8 +17,8 @@ const UDtable = ({ unitDetailsData, propid }) => {
             <thead>
               <tr>
                 <th>ID</th>
+                <th>Floor Plan</th>
                 <th>BHK</th>
-                <th>Range</th>
                 <th>Size</th>
                 <th>Price</th>
                 <th style={{ textAlign: "center" }}>Action</th>
@@ -32,7 +32,7 @@ const UDtable = ({ unitDetailsData, propid }) => {
                     return (
                       <UDtableRow
                         key={index}
-                        index={index}
+                        index={i}
                         propid={propid}
                         bhk={unitdetail.bhk}
                         detaildata={detaildata}
