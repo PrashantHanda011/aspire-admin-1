@@ -9,6 +9,7 @@ const AAtablerow = ({ index, expert }) => {
         <td>{expert.name}</td>
         <td>{expert.number}</td>
         <td>{expert.email}</td>
+        <td>{expert.position}</td>
         <td>{expert.experience}</td>
         <td>{expert.previousIndustry}</td>
         <td>{expert.cv}</td>

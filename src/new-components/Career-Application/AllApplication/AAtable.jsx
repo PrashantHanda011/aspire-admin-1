@@ -12,6 +12,7 @@ const AAtable = ({ expertData }) => {
             <th>Name</th>
             <th>Phone</th>
             <th>Email</th>
+            <th>Position</th>
             <th>Experience</th>
             <th>Previous Industry</th>
             <th>Resumes</th>
