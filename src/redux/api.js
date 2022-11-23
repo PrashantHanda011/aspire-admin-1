@@ -30,7 +30,15 @@ export const deleteUnitDetail = (id, bhk, did) =>
     detailId: did,
   });
 
-// Developer
+
+  //usp
+  export const getUSP = (data) => API.post('/prop/getUsp',data);
+  export const addUSP = (data) => API.post('/prop/addUsp',data);
+  export const DeleteUSP = (data) => API.post('/prop/deleteUsp',data);
+
+  // Developer
+
+
 export const getAllDeveloper = () => API.get('/dev/getAllDeveloper');
 export const addDeveloper = (data) => API.post('/dev/addDeveloper', data);
 export const deleteDeveloper = (devid) =>

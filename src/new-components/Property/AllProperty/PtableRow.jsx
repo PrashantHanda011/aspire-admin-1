@@ -103,6 +103,11 @@ const PtableRow = ({ index, property, allproperty, setallproperty }) => {
         <td>{property.ready ? "Yes" : "No"}</td>
         <td>{property.unitsLeft}</td>
         <td>{property.price}</td>
+        <td>
+        <Link to={`/property/usp/${property._id}`}>
+              <button className="btn btn-outline-secondary btn-sm">View</button>
+            </Link>
+            </td>
         <td style={{ textAlign: "center" }}>
           {property.unitDetails.length ? (
             <Link to={`/property/unitdetail/${property._id}`}>
