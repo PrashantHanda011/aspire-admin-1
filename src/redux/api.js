@@ -35,6 +35,7 @@ export const deleteUnitDetail = (id, bhk, did) =>
   export const getUSP = (data) => API.post('/prop/getUsp',data);
   export const addUSP = (data) => API.post('/prop/addUsp',data);
   export const DeleteUSP = (data) => API.post('/prop/deleteUsp',data);
+  export const GetPrice = () => API.get('/cn/getForm');
 
   // Developer
 

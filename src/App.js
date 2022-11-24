@@ -29,6 +29,7 @@ import EditDeveloperForm from './new-components/Developer/EditDeveloperForm';
 import Application from './new-components/Career-Application/Application';
 import USP from './new-components/USP/USP';
 import AddUsp from './new-components/USP/AddUsp';
+import Price from './new-components/Price-Form/Price';
 export const history = createHistory();
 const App = () => {
   return (
@@ -99,6 +100,7 @@ const App = () => {
           />
           <Route path="/contacts" exact component={ContactUs} />
           <Route path="/experts" exact component={Experts} />
+          <Route path="/price-form" exact component={Price} />
         </NavSidebar>
       </Switch>
     </Router>

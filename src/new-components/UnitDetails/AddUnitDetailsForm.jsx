@@ -16,14 +16,12 @@ const AddUnitDetailsForm = () => {
     range: '',
     floorPlan: '',
     size: '',
-    price: '',
   });
 
   const [error, setError] = useState({
     range: false,
     floorPlan: false,
     size: false,
-    price: false,
   });
   console.log(detailData)
 
@@ -98,7 +96,7 @@ const AddUnitDetailsForm = () => {
           {/* 2nd Row */}
           <div className="unitdetail-alignRow">
             {/* Price */}
-            <div className="unitdetail-inputFieldDiv form-group">
+            {/* <div className="unitdetail-inputFieldDiv form-group">
               <label className="unitdetail-inputLabel">
                 Price (in L){' '}
                 <span style={{ color: 'red', fontSize: '1.2rem' }}>*</span>{' '}
@@ -111,10 +109,10 @@ const AddUnitDetailsForm = () => {
                 className="unitdetail-inputField"
                 onChange={handleInputchange('price')}
               />
-            </div>
+            </div> */}
 
             {/* Size*/}
-            <div className="unitdetail-inputFieldDiv form-group">
+            <div className="unitdetail-textFieldDiv form-group">
               <label className="unitdetail-inputLabel">
                 Size <span style={{ color: 'red', fontSize: '1.2rem' }}>*</span>{' '}
               </label>

@@ -379,6 +379,30 @@ const NavSidebar = (props) => {
                       </ListItemIcon>
                       <ListItemText primary="Experts" />
                     </ListItem>
+                    
+                    <ListItem
+                      button
+                      className={
+                        props.location.pathname.includes('/price-form')
+                          ? classes.selectedList
+                          : ''
+                      }
+                      onClick={() => handleListClick('/price-form')}
+                    >
+                      <ListItemIcon>
+                        {props.location.pathname.includes('/price-form') ? (
+                          <PeopleAltIcon
+                            style={{ color: 'white', fontSize: '1.8rem' }}
+                          />
+                        ) : (
+                          <PeopleAltIcon
+                            style={{ color: 'white', fontSize: '1.8rem' }}
+                          />
+                        )}
+                      </ListItemIcon>
+                      <ListItemText primary="Price Form" />
+                    </ListItem>
+
                   </List>
                 </Accordion.Body>
               </Accordion.Item>
