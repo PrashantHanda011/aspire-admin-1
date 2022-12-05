@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import LoadingPage from '../new-components/utils/LoadingPage';
-import axios from 'axios';
-import logo from '../images/logo.png';
-import '../styles/LoginPage.css';
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+import LoadingPage from "../new-components/utils/LoadingPage";
+import axios from "axios";
+import logo from "../images/logo.png";
+import "../styles/LoginPage.css";
 
 const initialData = {
-  email: '',
-  password: '',
+  email: "",
+  password: "",
 };
 
 const LoginPage = () => {
@@ -24,19 +24,19 @@ const LoginPage = () => {
       setLoading(true);
       try {
         const { data } = await axios.post(
-          'https://aspire0.herokuapp.com/auth/login',
+          "https://aspire-kappa.vercel.app/auth/login",
           formData
         );
         console.log(data);
         setLoading(false);
-        localStorage.setItem('aspire', JSON.stringify(data?.data));
-        history.push('/property');
+        localStorage.setItem("aspire", JSON.stringify(data?.data));
+        history.push("/property");
       } catch (error) {
         setLoading(false);
-        alert('Something went wrong, please try later!');
+        alert("Something went wrong, please try later!");
       }
     } else {
-      alert('Both fields required');
+      alert("Both fields required");
     }
   };
 
